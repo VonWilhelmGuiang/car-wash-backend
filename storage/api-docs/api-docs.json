@@ -17,12 +17,14 @@
                     {
                         "name": "email",
                         "in": "query",
-                        "description": "User Email Address"
+                        "description": "User Email Address",
+                        "required": true
                     },
                     {
                         "name": "password",
                         "in": "query",
-                        "description": "User Password"
+                        "description": "User Password",
+                        "required": true
                     }
                 ],
                 "responses": {
@@ -49,6 +51,168 @@
                         "description": "Required Fields are Empty"
                     }
                 }
+            }
+        },
+        "/api/auth/register": {
+            "post": {
+                "tags": [
+                    "Auth"
+                ],
+                "summary": "User Registration",
+                "description": "Register",
+                "operationId": "d764dd091cc4494ae0baf360b03319f3",
+                "parameters": [
+                    {
+                        "name": "user_type",
+                        "in": "query",
+                        "required": true,
+                        "schema": {
+                            "type": "string",
+                            "enum": [
+                                "admin",
+                                "shop_owner",
+                                "vehicle_owner"
+                            ],
+                            "default": "vehicle_owner"
+                        }
+                    },
+                    {
+                        "name": "first_name",
+                        "in": "query",
+                        "description": "User's first name",
+                        "required": true
+                    },
+                    {
+                        "name": "last_name",
+                        "in": "query",
+                        "description": "User's last name",
+                        "required": true
+                    },
+                    {
+                        "name": "phone_number",
+                        "in": "query",
+                        "description": "User's phone number",
+                        "required": true
+                    },
+                    {
+                        "name": "email",
+                        "in": "query",
+                        "description": "User's email address",
+                        "required": true
+                    },
+                    {
+                        "name": "password",
+                        "in": "query",
+                        "description": "User's password",
+                        "required": true
+                    },
+                    {
+                        "name": "password_confirmation",
+                        "in": "query",
+                        "description": "User's confirmation password",
+                        "required": true
+                    },
+                    {
+                        "name": "admin_password",
+                        "in": "query",
+                        "description": "Admin creator's password",
+                        "required": false
+                    },
+                    {
+                        "name": "user_info",
+                        "in": "query",
+                        "schema": {
+                            "properties": {
+                                "shop_owner_info": {
+                                    "properties": {
+                                        "shop_name": {
+                                            "type": "string"
+                                        },
+                                        "location": {
+                                            "type": "string"
+                                        },
+                                        "operating_hour_from": {
+                                            "type": "string"
+                                        },
+                                        "operating_hour_to": {
+                                            "type": "string"
+                                        }
+                                    },
+                                    "type": "object"
+                                },
+                                "vehicle_owner_info": {
+                                    "properties": {
+                                        "vehicle_model": {
+                                            "type": "string"
+                                        },
+                                        "license_plate": {
+                                            "type": "string"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            },
+                            "type": "object"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "User Created",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "success": {
+                                            "type": "integer"
+                                        },
+                                        "user_account": {
+                                            "description": "User Account Type",
+                                            "type": "integer"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "success": {
+                                            "type": "integer"
+                                        },
+                                        "message": {
+                                            "type": "string"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "Required Fields are Empty"
+                    }
+                },
+                "security": [
+                    {
+                        "sanctum": []
+                    }
+                ]
+            }
+        }
+    },
+    "components": {
+        "securitySchemes": {
+            "sanctum": {
+                "type": "apiKey",
+                "description": "Enter token in format (Bearer <token>)",
+                "name": "Authorization",
+                "in": "header"
             }
         }
     }

@@ -26,7 +26,7 @@ class AccountFactory extends Factory
             'status' => 0, //setStatus
             'created_at' => now(),
             'updated_at' => null,
-            'remember_token' => Str::random(10),
+            'remember_token' => null,
         ];
         
     }

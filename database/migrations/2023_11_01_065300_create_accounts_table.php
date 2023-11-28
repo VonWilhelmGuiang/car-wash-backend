@@ -21,7 +21,7 @@ return new class extends Migration
                 ->comment('0:deactivated, 1:active, 2:pending approval');
             $table->timestamp('created_at')->useCurrent();
             $table->timestamp('updated_at')->nullable();
-            $table->rememberToken();
+            $table->rememberToken()->nullable();
         });
     }
 

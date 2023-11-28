@@ -16,7 +16,8 @@ return new class extends Migration
             $table->foreignId('shop_owner_id')->references('shop_owner_id')->on('shop_owners')->constrained();
             $table->string('name',100);
             $table->string('location')->comment('longitude and latitude');
-            $table->string('operating_hours',50);
+            $table->string('operating_from',5);
+            $table->string('operating_to',5);
         });
     }
 

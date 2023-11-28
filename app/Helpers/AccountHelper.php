@@ -19,4 +19,29 @@ class AccountHelper{
         }
         return 'abilities:'.$abilities;
     }
+
+    public static function isLoggedUser($user_type = null) :bool {
+        $convert_user_type = false;
+
+        switch($user_type)
+        {
+            case "admin": //admin user
+                $convert_user_type = 0;
+                break;
+            case "shop_owner": //shop owner user
+                $convert_user_type = 1;
+                break;
+            case "vehicle_user": //vehicle owner user
+                $convert_user_type = 2;
+                break;
+            default:
+                return false;
+        }
+
+        if(auth('sanctum')->check()){
+            return auth('sanctum')->user()->type === $convert_user_type? true : false;
+        }else{
+            return false;
+        }
+    }
 }

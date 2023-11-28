@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('vehicle_info', function (Blueprint $table) {
             $table->id('vehicle_info_id');
             $table->foreignId('vehicle_owner_id')->references('vehicle_owner_id')->on('vehicle_owners')->constrained();
-            $table->string('model_type',30);
+            $table->string('model',30);
             $table->string('license_plate',30)->unique();
         });
     }
