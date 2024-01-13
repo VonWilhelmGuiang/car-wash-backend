@@ -27,13 +27,15 @@ class AuthController extends BaseController
      *          name="email",
      *          in="query",
      *          description="User Email Address",
-     *          required = true
+     *          required = true,
+     *          @OA\Schema(type="string")
      *      ),
      *      @OA\Parameter(
      *          name="password",
      *          in="query",
      *          description="User Password",
-     *          required = true
+     *          required = true,
+     *          @OA\Schema(type="string")
      *      ),
      *      @OA\Response(response="200", description="Login successful", 
      *          @OA\JsonContent(
@@ -178,7 +180,7 @@ class AuthController extends BaseController
      *          @OA\JsonContent(
      *              type = "object",
      *                  @OA\Property(
-     *                      type = "integer",
+     *                      type = "boolean",
      *                      property = "success",
      *                  ),
      *                  @OA\Property(
@@ -228,6 +230,7 @@ class AuthController extends BaseController
                 return response()->json(['message' => "Required Fields are Empty"] , 422);
         }
     }
+
     private function createAdmin($user_data) : array {
         $valid_data = $user_data->validate([
             'email' => ['required','string','email','unique:accounts'],
@@ -243,11 +246,23 @@ class AuthController extends BaseController
         $account->status = 1;
         $created = $account->save();
         return [
-            'success' => $created? 1 : 0,
+            'success' => $created,
             'user_account' => 0
         ];
     }
+
     private function createShopOwner($user_data) : array{
+         $valid_data = $user_data->validate([
+            'email' => ['required','string','email','unique:accounts'],
+            'password' => ['required','confirmed','min:6'],
+            'first_name' => ['required','string'], 
+            'last_name' => ['required','string'], 
+            'phone_number' => ['required','string'], 
+            'shop_name' => ['required','string'],
+            'location' => ['required','string'],
+            'operating_hour_from' => ['required','string'],
+            'operating_hour_to' => ['required','string']
+        ]); //returns errors if not valid
         
     }
 }
