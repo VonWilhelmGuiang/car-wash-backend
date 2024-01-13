@@ -18,13 +18,19 @@
                         "name": "email",
                         "in": "query",
                         "description": "User Email Address",
-                        "required": true
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
                     },
                     {
                         "name": "password",
                         "in": "query",
                         "description": "User Password",
-                        "required": true
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
                     }
                 ],
                 "responses": {
@@ -164,7 +170,7 @@
                                 "schema": {
                                     "properties": {
                                         "success": {
-                                            "type": "integer"
+                                            "type": "boolean"
                                         },
                                         "user_account": {
                                             "description": "User Account Type",
